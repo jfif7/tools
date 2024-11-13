@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="mobileSucks" style="display: none;">mobile sucks and have to copy manually for themselves</p>
+<input type="text" id="textInput">
+<script>
+function isMobileDevice() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('Mobile') !== -1);
+}
+function copy_from_url() {
+	const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    const text = urlParams.get('copy_text')
+    console.log(text)
+    let textInput = document.getElementById("textInput")
+
+    if(isMobileDevice()) {
+        document.getElementById('mobileSucks').style.display = ""
+    }
+
+    if(text === null) {
+        alert('what?')
+    } else {
+        textInput.setAttribute('value', text)
+        textInput.select();
+        textInput.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(text)
+        alert("Copied to clipboard: " + text)
+    }
+}
+copy_from_url()
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@ const nextConfig = {
   output: 'export',
   // Set basePath to the repository name for GitHub Pages.
   // If your repository is named something else, please update this value.
-  basePath: '/tools',
+  basePath: process.env.NODE_ENV === "development" ? "" : "/tools/teddy",
   typescript: {
     ignoreBuildErrors: true,
   },

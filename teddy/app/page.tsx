@@ -10,11 +10,11 @@ export default function Home() {
       <div className="h-full flex flex-col p-4 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-3">
           <h1 className="text-2xl font-bold text-primary">
-            Teddy Betting Tool
+            泰迪資源最佳化AI解決方案
           </h1>
           <div className="flex items-center gap-3">
             <p className="text-muted-foreground text-sm">
-              Master Duel Gacha Optimizer
+              相信統計學，明天睡公園
             </p>
             <ThemeToggle />
           </div>

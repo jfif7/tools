@@ -35,7 +35,7 @@ export function DopamineDisplay() {
           }`}
         >
           <h2 className="text-5xl md:text-7xl font-black text-primary drop-shadow-lg mb-4 text-center text-balance">
-            ALL IN {carNumber} CAR
+            ALL IN {carNumber} 車
           </h2>
         </div>
 
@@ -46,14 +46,13 @@ export function DopamineDisplay() {
           disabled={isAnimating}
         >
           <Sparkles className="h-5 w-5 mr-2" />
-          {isAnimating ? "Rolling..." : "Roll Again"}
+          {isAnimating ? "通靈中..." : "我不信！"}
         </Button>
       </div>
 
       <div className="p-3 bg-secondary text-center">
         <p className="text-muted-foreground text-sm">
-          Warning: This strategy optimizes for entertainment, not financial
-          returns.
+          警告：本策略僅提供娛樂價值，泰迪不見不要怪我
         </p>
       </div>
     </div>

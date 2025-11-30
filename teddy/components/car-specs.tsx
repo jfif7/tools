@@ -70,7 +70,7 @@ export function CarSpecs({ showRewardRatio, target }: CarSpecsProps) {
   return (
     <div className="h-full flex flex-col bg-card rounded-lg border border-border p-4">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-primary font-semibold">Car Specifications</h3>
+        <h3 className="text-primary font-semibold">車們</h3>
         <div className="flex gap-2">
           <Button
             size="sm"
@@ -78,7 +78,7 @@ export function CarSpecs({ showRewardRatio, target }: CarSpecsProps) {
             onClick={() => addCar("ur")}
             className="h-7 text-xs border-primary text-primary hover:bg-primary hover:text-primary-foreground"
           >
-            <Plus className="h-3 w-3 mr-1" /> UR
+            <Plus className="h-3 w-3 mr-1" /> UR車
           </Button>
           <Button
             size="sm"
@@ -86,7 +86,7 @@ export function CarSpecs({ showRewardRatio, target }: CarSpecsProps) {
             onClick={() => addCar("royal")}
             className="h-7 text-xs border-primary text-primary hover:bg-primary hover:text-primary-foreground"
           >
-            <Plus className="h-3 w-3 mr-1" /> Royal
+            <Plus className="h-3 w-3 mr-1" /> 鑽車
           </Button>
         </div>
       </div>
@@ -196,18 +196,21 @@ function CarRow({
           </div>
         </div>
 
+        {/* Car ID with circular border */}
+        <div className="flex-shrink-0">
+          <div className="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center bg-background">
+            <span className="text-xs font-bold text-blue-500">{car.id}</span>
+          </div>
+        </div>
+
         {/* Car label with progress bar style indicator */}
-        {/* <div className="w-24 flex-shrink-0">
+        <div className="w-18 flex-shrink-0">
           <span className="text-primary text-sm font-medium">
             {car.type === "ur"
               ? `${car.urMin}~${car.urMax}`
-              : `${car.royalCount}+ Royal`}
+              : `${car.royalCount}+ 鑽卡`}
           </span>
-          <div
-            className="h-1 mt-1 bg-primary rounded-full"
-            style={{ width: `${Math.min((index + 1) * 20, 100)}%` }}
-          />
-        </div> */}
+        </div>
 
         {/* Controls based on car type */}
         {car.type === "ur" ? (

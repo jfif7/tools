@@ -29,7 +29,7 @@ export function BettingTool() {
           htmlFor="target"
           className="text-primary font-medium whitespace-nowrap"
         >
-          Target:
+          目標：
         </Label>
         <Select value={target} onValueChange={(v) => setTarget(v as Target)}>
           <SelectTrigger
@@ -39,10 +39,10 @@ export function BettingTool() {
             <SelectValue placeholder="Select target" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="winrate">Winrate</SelectItem>
-            <SelectItem value="profit">Profit</SelectItem>
-            <SelectItem value="sharpe">Sharpe Ratio</SelectItem>
-            <SelectItem value="dopamine">Dopamine</SelectItem>
+            <SelectItem value="winrate">勝率</SelectItem>
+            <SelectItem value="profit">報酬</SelectItem>
+            <SelectItem value="sharpe">夏普</SelectItem>
+            <SelectItem value="dopamine">多巴胺！！！</SelectItem>
           </SelectContent>
         </Select>
       </div>

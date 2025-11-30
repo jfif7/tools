@@ -175,88 +175,101 @@ function CarRow({
 
   return (
     <div
-      className={`flex items-center gap-3 p-2 rounded border transition-colors ${
+      className={`flex flex-col sm:flex-row sm:items-center gap-3 p-2 rounded border transition-colors ${
         isBest
           ? "bg-primary/20 border-primary"
           : "bg-secondary/50 border-border/50"
       }`}
     >
-      <div className="w-20 flex-shrink-0 text-center">
-        <div
-          className={`text-sm font-bold ${
-            isBest ? "text-primary" : "text-foreground"
-          }`}
-        >
-          {isBest && <Trophy className="h-3 w-3 inline mr-1" />}
-          {getTargetDisplay()}
-        </div>
-        <div className="text-[10px] text-muted-foreground">
-          {getTargetLabel()}
-        </div>
-      </div>
-
-      {/* Car label with progress bar style indicator */}
-      <div className="w-24 flex-shrink-0">
-        <span className="text-primary text-sm font-medium">
-          {car.type === "ur"
-            ? `${car.urMin}~${car.urMax}`
-            : `${car.royalCount}+ Royal`}
-        </span>
-        <div
-          className="h-1 mt-1 bg-primary rounded-full"
-          style={{ width: `${Math.min((index + 1) * 20, 100)}%` }}
-        />
-      </div>
-
-      {/* Controls based on car type */}
-      {car.type === "ur" ? (
-        <div className="flex items-center gap-2">
-          <NumberStepper
-            value={car.urMin || 0}
-            onChange={(v) => onUpdate({ urMin: v })}
-            min={0}
-          />
-          <span className="text-muted-foreground">~</span>
-          <NumberStepper
-            value={car.urMax || 0}
-            onChange={(v) => onUpdate({ urMax: v })}
-            min={0}
-          />
-        </div>
-      ) : (
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs">
-            <span
-              className={
-                !car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
-              }
-            >
-              N
-            </span>
-            <Switch
-              checked={car.isUrRoyal}
-              onCheckedChange={(checked) => onUpdate({ isUrRoyal: checked })}
-              className="scale-75"
-            />
-            <span
-              className={
-                car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
-              }
-            >
-              UR
-            </span>
+      <div className="flex items-center gap-3 w-full sm:w-auto">
+        <div className="w-20 flex-shrink-0 text-center">
+          <div
+            className={`text-sm font-bold ${
+              isBest ? "text-primary" : "text-foreground"
+            }`}
+          >
+            {isBest && <Trophy className="h-3 w-3 inline mr-1" />}
+            {getTargetDisplay()}
           </div>
-          <NumberStepper
-            value={car.royalCount || 1}
-            onChange={(v) => onUpdate({ royalCount: v })}
-            min={1}
-          />
+          <div className="text-[10px] text-muted-foreground">
+            {getTargetLabel()}
+          </div>
         </div>
-      )}
+
+        {/* Car label with progress bar style indicator */}
+        {/* <div className="w-24 flex-shrink-0">
+          <span className="text-primary text-sm font-medium">
+            {car.type === "ur"
+              ? `${car.urMin}~${car.urMax}`
+              : `${car.royalCount}+ Royal`}
+          </span>
+          <div
+            className="h-1 mt-1 bg-primary rounded-full"
+            style={{ width: `${Math.min((index + 1) * 20, 100)}%` }}
+          />
+        </div> */}
+
+        {/* Controls based on car type */}
+        {car.type === "ur" ? (
+          <div className="flex items-center gap-2 min-w-51">
+            <NumberStepper
+              value={car.urMin || 0}
+              onChange={(v) => onUpdate({ urMin: v })}
+              min={0}
+            />
+            <span className="text-muted-foreground">~</span>
+            <NumberStepper
+              value={car.urMax || 0}
+              onChange={(v) => onUpdate({ urMax: v })}
+              min={0}
+            />
+          </div>
+        ) : (
+          <div className="flex items-center gap-3 min-w-51">
+            <div className="flex items-center gap-1.5 text-xs">
+              <span
+                className={
+                  !car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
+                }
+              >
+                ALL
+              </span>
+              <Switch
+                checked={car.isUrRoyal}
+                onCheckedChange={(checked) => onUpdate({ isUrRoyal: checked })}
+                className="scale-75"
+              />
+              <span
+                className={
+                  car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
+                }
+              >
+                UR
+              </span>
+            </div>
+            <NumberStepper
+              value={car.royalCount || 1}
+              onChange={(v) => onUpdate({ royalCount: v })}
+              min={1}
+            />
+          </div>
+        )}
+
+        {/* Remove button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onRemove}
+          disabled={!canRemove}
+          className="h-6 w-6 ml-auto text-destructive hover:text-destructive hover:bg-destructive/20"
+        >
+          <X className="h-3 w-3" />
+        </Button>
+      </div>
 
       {/* Reward ratio slider */}
       {showRewardRatio && (
-        <div className="flex items-center gap-2 flex-1 min-w-0">
+        <div className="flex items-center gap-2 w-full sm:flex-1 sm:min-w-0">
           <Slider
             value={[car.rewardRatio]}
             onValueChange={([value]) => onUpdate({ rewardRatio: value })}
@@ -269,17 +282,6 @@ function CarRow({
           </span>
         </div>
       )}
-
-      {/* Remove button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={onRemove}
-        disabled={!canRemove}
-        className="h-6 w-6 text-destructive hover:text-destructive hover:bg-destructive/20"
-      >
-        <X className="h-3 w-3" />
-      </Button>
     </div>
   )
 }

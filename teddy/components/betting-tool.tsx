@@ -9,12 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { NumberStepper } from "@/components/ui/number-stepper"
 import { CarSpecs } from "@/components/car-specs"
 import { DopamineDisplay } from "@/components/dopamine-display"
 import type { Target } from "@/lib/calculate-bet"
 
 export function BettingTool() {
   const [target, setTarget] = useState<Target>("winrate")
+  const [pulls, setPulls] = useState(40)
 
   const showCarSpecs =
     target === "winrate" || target === "profit" || target === "sharpe"
@@ -45,6 +47,19 @@ export function BettingTool() {
             <SelectItem value="dopamine">多巴胺！！！</SelectItem>
           </SelectContent>
         </Select>
+        <Label
+          htmlFor="target"
+          className="text-primary font-medium whitespace-nowrap"
+        >
+          抽數：
+        </Label>
+        <NumberStepper
+          value={pulls}
+          onChange={(v) => {
+            setPulls(v)
+          }}
+          min={0}
+        />
       </div>
 
       {/* Car Specs or Dopamine Display */}

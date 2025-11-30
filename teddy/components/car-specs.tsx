@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Slider } from "@/components/ui/slider"
-import { Plus, Minus, X, Trophy } from "lucide-react"
+import { Plus, X, Trophy } from "lucide-react"
+import { NumberStepper } from "@/components/ui/number-stepper"
 import {
   calculateBet,
   getBestCarId,
@@ -285,45 +285,6 @@ function CarRow({
           </span>
         </div>
       )}
-    </div>
-  )
-}
-
-function NumberStepper({
-  value,
-  onChange,
-  min = 0,
-}: {
-  value: number
-  onChange: (v: number) => void
-  min?: number
-}) {
-  return (
-    <div className="flex items-center bg-background rounded border border-border">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-6 w-6 rounded-none"
-        onClick={() => onChange(Math.max(min, value - 1))}
-      >
-        <Minus className="h-3 w-3" />
-      </Button>
-      <Input
-        type="number"
-        value={value}
-        onChange={(e) =>
-          onChange(Math.max(min, Number.parseInt(e.target.value) || min))
-        }
-        className="h-6 w-10 text-center border-0 bg-transparent p-0 text-sm"
-      />
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-6 w-6 rounded-none"
-        onClick={() => onChange(value + 1)}
-      >
-        <Plus className="h-3 w-3" />
-      </Button>
     </div>
   )
 }

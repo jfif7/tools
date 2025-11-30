@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Slider } from "@/components/ui/slider"
 import { Plus, Minus, X, Trophy } from "lucide-react"
-import { calculateBet, getBestCarId, type CarConfig, type Target, type BetResult } from "@/lib/calculate-bet"
+import {
+  calculateBet,
+  getBestCarId,
+  type CarConfig,
+  type Target,
+  type BetResult,
+} from "@/lib/calculate-bet"
 
 interface CarSpecsProps {
   showRewardRatio: boolean
@@ -31,7 +37,8 @@ export function CarSpecs({ showRewardRatio, target }: CarSpecsProps) {
     setBestCarId(getBestCarId(newResults, target))
   }, [cars, target])
 
-  const getResultForCar = (carId: number) => results.find((r) => r.carId === carId)
+  const getResultForCar = (carId: number) =>
+    results.find((r) => r.carId === carId)
 
   const updateCar = (id: number, updates: Partial<CarConfig>) => {
     setCars(cars.map((car) => (car.id === id ? { ...car, ...updates } : car)))
@@ -42,7 +49,13 @@ export function CarSpecs({ showRewardRatio, target }: CarSpecsProps) {
     const newCar: CarConfig =
       type === "ur"
         ? { id: newId, type: "ur", urMin: 0, urMax: 1, rewardRatio: 0 }
-        : { id: newId, type: "royal", isUrRoyal: true, royalCount: 1, rewardRatio: 0 }
+        : {
+            id: newId,
+            type: "royal",
+            isUrRoyal: true,
+            royalCount: 1,
+            rewardRatio: 0,
+          }
     setCars([...cars, newCar])
   }
 
@@ -163,44 +176,81 @@ function CarRow({
   return (
     <div
       className={`flex items-center gap-3 p-2 rounded border transition-colors ${
-        isBest ? "bg-primary/20 border-primary" : "bg-secondary/50 border-border/50"
+        isBest
+          ? "bg-primary/20 border-primary"
+          : "bg-secondary/50 border-border/50"
       }`}
     >
       <div className="w-20 flex-shrink-0 text-center">
-        <div className={`text-sm font-bold ${isBest ? "text-primary" : "text-foreground"}`}>
+        <div
+          className={`text-sm font-bold ${
+            isBest ? "text-primary" : "text-foreground"
+          }`}
+        >
           {isBest && <Trophy className="h-3 w-3 inline mr-1" />}
           {getTargetDisplay()}
         </div>
-        <div className="text-[10px] text-muted-foreground">{getTargetLabel()}</div>
+        <div className="text-[10px] text-muted-foreground">
+          {getTargetLabel()}
+        </div>
       </div>
 
       {/* Car label with progress bar style indicator */}
       <div className="w-24 flex-shrink-0">
         <span className="text-primary text-sm font-medium">
-          {car.type === "ur" ? `${car.urMin}~${car.urMax}` : `${car.royalCount}+ Royal`}
+          {car.type === "ur"
+            ? `${car.urMin}~${car.urMax}`
+            : `${car.royalCount}+ Royal`}
         </span>
-        <div className="h-1 mt-1 bg-primary rounded-full" style={{ width: `${Math.min((index + 1) * 20, 100)}%` }} />
+        <div
+          className="h-1 mt-1 bg-primary rounded-full"
+          style={{ width: `${Math.min((index + 1) * 20, 100)}%` }}
+        />
       </div>
 
       {/* Controls based on car type */}
       {car.type === "ur" ? (
         <div className="flex items-center gap-2">
-          <NumberStepper value={car.urMin || 0} onChange={(v) => onUpdate({ urMin: v })} min={0} />
+          <NumberStepper
+            value={car.urMin || 0}
+            onChange={(v) => onUpdate({ urMin: v })}
+            min={0}
+          />
           <span className="text-muted-foreground">~</span>
-          <NumberStepper value={car.urMax || 0} onChange={(v) => onUpdate({ urMax: v })} min={0} />
+          <NumberStepper
+            value={car.urMax || 0}
+            onChange={(v) => onUpdate({ urMax: v })}
+            min={0}
+          />
         </div>
       ) : (
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs">
-            <span className={!car.isUrRoyal ? "text-foreground" : "text-muted-foreground"}>N</span>
+            <span
+              className={
+                !car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
+              }
+            >
+              N
+            </span>
             <Switch
               checked={car.isUrRoyal}
               onCheckedChange={(checked) => onUpdate({ isUrRoyal: checked })}
               className="scale-75"
             />
-            <span className={car.isUrRoyal ? "text-foreground" : "text-muted-foreground"}>UR</span>
+            <span
+              className={
+                car.isUrRoyal ? "text-foreground" : "text-muted-foreground"
+              }
+            >
+              UR
+            </span>
           </div>
-          <NumberStepper value={car.royalCount || 1} onChange={(v) => onUpdate({ royalCount: v })} min={1} />
+          <NumberStepper
+            value={car.royalCount || 1}
+            onChange={(v) => onUpdate({ royalCount: v })}
+            min={1}
+          />
         </div>
       )}
 
@@ -214,7 +264,9 @@ function CarRow({
             step={1}
             className="flex-1"
           />
-          <span className="text-sm font-bold text-primary w-10 text-right">{car.rewardRatio}%</span>
+          <span className="text-sm font-bold text-primary w-10 text-right">
+            {car.rewardRatio}%
+          </span>
         </div>
       )}
 
@@ -232,7 +284,15 @@ function CarRow({
   )
 }
 
-function NumberStepper({ value, onChange, min = 0 }: { value: number; onChange: (v: number) => void; min?: number }) {
+function NumberStepper({
+  value,
+  onChange,
+  min = 0,
+}: {
+  value: number
+  onChange: (v: number) => void
+  min?: number
+}) {
   return (
     <div className="flex items-center bg-background rounded border border-border">
       <Button
@@ -246,10 +306,17 @@ function NumberStepper({ value, onChange, min = 0 }: { value: number; onChange: 
       <Input
         type="number"
         value={value}
-        onChange={(e) => onChange(Math.max(min, Number.parseInt(e.target.value) || min))}
+        onChange={(e) =>
+          onChange(Math.max(min, Number.parseInt(e.target.value) || min))
+        }
         className="h-6 w-10 text-center border-0 bg-transparent p-0 text-sm"
       />
-      <Button variant="ghost" size="icon" className="h-6 w-6 rounded-none" onClick={() => onChange(value + 1)}>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-6 w-6 rounded-none"
+        onClick={() => onChange(value + 1)}
+      >
         <Plus className="h-3 w-3" />
       </Button>
     </div>
